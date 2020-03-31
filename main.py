@@ -4,7 +4,7 @@ with open("output.csv", "w+") as data:
     data.write("")
 
 with open("output.csv", "a", encoding="utf-8") as output:
-    output.write("website,photo,ready_to_link,ordernum,latlon,city,name_search,photo_version,zip,country_short_code,bad_standing,effective_date,status,address,active,state_code,show_on_map,kids,name,country,org_type,aid,full_state\n")
+    output.write("website,photo,ready_to_link,ordernum,lat,lon,city,name_search,photo_version,zip,country_short_code,bad_standing,effective_date,status,address,active,state_code,show_on_map,kids,name,country,org_type,aid,full_state\n")
     
     morePages = True
     itx = 1
@@ -24,9 +24,11 @@ with open("output.csv", "a", encoding="utf-8") as output:
                     full_state = ""
 
                 try:
-                    latlon = gym['latlon'].replace(",","\t")
+                    lat = gym['latlon'].split(",")[0]
+                    longS = gym['latlon'].split(",")[1]
                 except:
-                    latlon = ""
+                    lat = ""
+                    longS = ""
 
                 try:
                     zipcode = gym['zip']
@@ -44,8 +46,8 @@ with open("output.csv", "a", encoding="utf-8") as output:
                     address = ""
 
                 print(gym)
-                output.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(
-                    gym['website'], gym['photo'], str(gym['ready_to_link']), str(gym['ordernum']), latlon, city,
+                output.write("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(
+                    gym['website'], gym['photo'], str(gym['ready_to_link']), str(gym['ordernum']), lat, longS, city,
                     gym['name_search'], str(gym['photo_version']), zipcode, gym['country_short_code'], str(gym['bad_standing']),
                     str(gym['effective_date']), str(gym['status']), address, str(gym['active']), state, str(gym['show_on_map']),
                     str(gym['kids']), gym['name'], gym['country'], gym['org_type'], str(gym['aid']), full_state
